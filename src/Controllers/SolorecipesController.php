@@ -80,7 +80,7 @@ class SolorecipesController extends Controller
     }
 
     public function edit(Request $request, $id)
-    { 
+    {
         $data = $request->all();
         $recipe = SoloRecipe::findOrFail($id);
 

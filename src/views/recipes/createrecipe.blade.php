@@ -15,6 +15,12 @@
                            value="{{ old('name',  isset($recipe->name) ? $recipe->name : null) }}"
                            class="form-control"/>
                 </label>
+                @if($recipe->image)
+                    <label class="col-lg-12 control-label">
+                        Current Image
+                        <img src="{{ Storage::disk()->url($recipe->image) }}">
+                    </label>
+                @endif
                 <label for="recipe-image" class="col-lg-12 control-label">
                     Image
                     <input type="file" name="image" id="recipe-image" value="" class="form-control"/>
@@ -57,7 +63,8 @@
                             <div class="panel panel-default ">
                                 <div class="panel-heading">Step @{{key + 1}}</div>
                                 <div class="panel-body">
-                                    <textarea rows="7" class="form-control" name="steps[]">@{{step.description}}</textarea><br/>
+                                    <textarea rows="7" class="form-control"
+                                              name="steps[]">@{{step.description}}</textarea><br/>
                                     <a v-on:click="removeElement(key)">Remove</a>
                                 </div>
                             </div>
