@@ -27,6 +27,17 @@ var steps = new Vue({
     }
 });
 $(function(){
+    if(typeof (currIngredients) != 'undefined' && currIngredients.length > 0){
+        $.each(currIngredients,function(i,item){
+            app2.$data.ingredients.push(item);
+        });
+    }
+
+    if(typeof (currSteps) != 'undefined' && currSteps.length > 0){
+        $.each(currSteps,function(i,item){
+            steps.$data.steps.push(item);
+        });
+    }
 
     $('#searchlist').btsListFilter('#searchinput', {
         loadingClass: 'loading',
@@ -43,7 +54,9 @@ $(function(){
         evt.preventDefault();
         app2.$data.ingredients.push({
             id:$this.data('id'),
-            name:$this.data('name')
+            name:$this.data('name'),
+            quantity:0,
+            preparation:''
         });
     });
 

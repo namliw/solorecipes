@@ -10,6 +10,8 @@ Route::group(['middleware' => ['web'],'prefix' => 'recipes'], function () {
     Route::get('/addRecipe', 'Solocode\Solorecipes\Controllers\SolorecipesController@createRecipe');
     Route::get('/{id}', 'Solocode\Solorecipes\Controllers\SolorecipesController@viewRecipe');
     Route::post('/create', 'Solocode\Solorecipes\Controllers\SolorecipesController@create');
+    Route::get('/{id}/edit/', 'Solocode\Solorecipes\Controllers\SolorecipesController@editRecipe');
+    Route::post('/{id}/edit/', 'Solocode\Solorecipes\Controllers\SolorecipesController@edit');
 
 });
 
