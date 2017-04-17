@@ -1,0 +1,14 @@
+{
+    "name": "solocode/solorecipes",
+    "description": "a simple laravel module for recipes management",
+    "type": "plugin",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "willman ac corcho",
+            "email": "willman.castaneda@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
