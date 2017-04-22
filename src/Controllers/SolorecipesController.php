@@ -19,12 +19,9 @@ class SolorecipesController extends Controller
         ]);
     }
 
-    public function viewRecipe($id)
+    public function viewRecipe(SoloRecipe $recipe)
     {
-        $p = SoloRecipe::findOrFail($id);
-        return view('solorecipes::recipes.solorecipe', [
-            'recipe' => $p
-        ]);
+        return view('solorecipes::recipes.solorecipe', compact('recipe'));
     }
 
     public function createRecipe()
@@ -34,12 +31,11 @@ class SolorecipesController extends Controller
         ]);
     }
 
-    public function editRecipe($id)
+    public function editRecipe(SoloRecipe $recipe)
     {
-        $recipe = SoloRecipe::findOrFail($id);
         return view('solorecipes::recipes.createrecipe', [
             'recipe' => $recipe,
-            'action' => url('recipes/'.$id.'/edit')
+            'action' => url('recipes/'.$recipe->id.'/edit')
         ]);
     }
 
@@ -79,10 +75,10 @@ class SolorecipesController extends Controller
 
     }
 
-    public function edit(Request $request, $id)
+    public function edit(Request $request, SoloRecipe $recipe)
     {
         $data = $request->all();
-        $recipe = SoloRecipe::findOrFail($id);
+        //$recipe = SoloRecipe::findOrFail($id);
 
         if ($recipe->name != $data['name']) {
             $recipe->name = $data['name'];

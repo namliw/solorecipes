@@ -14,4 +14,8 @@ class SoloIngredient extends Model
     public function recipes(){
         return $this->belongsToMany(SoloRecipe::class,'solorecipes_soloingredients','soloingredients_id','solorecipes_id');
     }
+
+    public function measurements(){
+        return $this->belongsToMany(SoloMeasurement::class);
+    }
 }
