@@ -9,13 +9,14 @@
                 <div clas="col-sm-12">
                     <h4>New Recipe</h4>
                 </div>
+                @include('solorecipes::partials.errors')
                 <label for="recipe-name" class="col-lg-12 control-label">
                     Name
                     <input type="text" name="name" id="recipe-name"
                            value="{{ old('name',  isset($recipe->name) ? $recipe->name : null) }}"
                            class="form-control"/>
                 </label>
-                @if($recipe->image)
+                @if(isset($recipe->name) && $recipe->image)
                     <label class="col-lg-12 control-label">
                         Current Image
                         <img src="{{ Storage::disk()->url($recipe->image) }}">
@@ -88,6 +89,7 @@
 @section('scripts')
     <script>
         var currIngredients = [
+                @if(isset($recipe->name))
                 @foreach ($recipe->ingredients as $ing)
             {
                 id: '{{$ing->id}}',
@@ -96,13 +98,16 @@
                 preparation: '{{$ing->pivot->preparation}}'
             },
             @endforeach
+            @endif
         ];
         var currSteps = [
+                @if(isset($recipe->name))
                 @foreach ($recipe->steps as $ing)
             {
                 sortorder: '{{$ing->sortorder}}', description: '{{$ing->description}}'
             },
             @endforeach
+            @endif
         ];
     </script>
     <script src="https://unpkg.com/vue"></script>

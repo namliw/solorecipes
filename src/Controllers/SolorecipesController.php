@@ -42,6 +42,12 @@ class SolorecipesController extends Controller
 
     public function create(Request $request)
     {
+        $this->validate($request,[
+            'name' => 'required',
+            'steps' => 'required',
+            'ingredients' => 'required',
+        ]);
+
         $data = $request->all();
 
         $recipe = new SoloRecipe;
