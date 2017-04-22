@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SoloRecipe extends Model
 {
+    protected $fillable = ['name','image'];
     public function steps()
     {
         return $this->hasMany(SoloRecipeStep::class,'solorecipes_id');

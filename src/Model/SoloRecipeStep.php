@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SoloRecipeStep extends Model
 {
+    protected $fillable = ['description'];
     public function recipe(){
         return $this->belongsTo(SoloRecipe::class);
     }
