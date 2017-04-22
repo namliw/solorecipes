@@ -14,7 +14,7 @@ class SoloIngredient extends Model
     protected $fillable = ['name'];
 
     public function recipes(){
-        return $this->belongsToMany(SoloRecipe::class,'solorecipes_soloingredients','soloingredients_id','solorecipes_id');
+        return $this->belongsToMany(SoloRecipe::class);
     }
 
     public function measurements(){

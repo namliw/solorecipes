@@ -52,6 +52,9 @@ $(function(){
     $('#searchlist').on('click','a.list-group-item',function(evt){
         var $this = $(this);
         evt.preventDefault();
+        if(typeof($this.data('id')) == 'undefined'){
+            return false;
+        }
         app2.$data.ingredients.push({
             id:$this.data('id'),
             name:$this.data('name'),

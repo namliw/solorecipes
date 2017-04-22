@@ -26,13 +26,13 @@ class CreateRecipesIngredientsStepsTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('solorecipes_soloingredients', function (Blueprint $table) {
-            $table->integer('solorecipes_id')->unsigned()->nullable();
-            $table->integer('soloingredients_id')->unsigned()->nullable();
+        Schema::create('solo_ingredient_solo_recipe', function (Blueprint $table) {
+            $table->integer('solo_recipe_id')->unsigned()->nullable();
+            $table->integer('solo_ingredient_id')->unsigned()->nullable();
 
-            $table->foreign('solorecipes_id')->references('id')
+            $table->foreign('solo_recipe_id')->references('id')
                 ->on('solo_recipes')->onDelete('cascade');
-            $table->foreign('soloingredients_id')->references('id')
+            $table->foreign('solo_ingredient_id')->references('id')
                 ->on('solo_ingredients')->onDelete('cascade');
 
             $table->increments('id');
@@ -46,8 +46,8 @@ class CreateRecipesIngredientsStepsTables extends Migration
             $table->tinyInteger('sortorder');
             $table->text('description');
 
-            $table->integer('solorecipes_id')->unsigned();
-            $table->foreign('solorecipes_id')->references('id')
+            $table->integer('solo_recipe_id')->unsigned();
+            $table->foreign('solo_recipe_id')->references('id')
                 ->on('solo_recipes')->onDelete('cascade');
 
             $table->timestamps();
@@ -61,7 +61,7 @@ class CreateRecipesIngredientsStepsTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('solorecipes_soloingredients');
+        Schema::dropIfExists('solo_ingredient_solo_recipe');
         Schema::dropIfExists('solo_recipe_steps');
         Schema::dropIfExists('solo_ingredients');
         Schema::dropIfExists('solo_recipes');

@@ -7,9 +7,7 @@
     </div>
     <div class="row">
         @foreach ($recipes as $recipe)
-            <div class="col-md-3">
-                <a href="{{url('/recipes/'.$recipe->id)}}">{{ $recipe->name }}</a>
-            </div>
+            @include('solorecipes::partials.recipes.list')
         @endforeach
     </div>
 @endsection

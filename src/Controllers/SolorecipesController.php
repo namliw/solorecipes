@@ -26,7 +26,7 @@ class SolorecipesController extends Controller
 
     public function createRecipe()
     {
-        return view('solorecipes::recipes.createrecipe',[
+        return view('solorecipes::recipes.createrecipe', [
             'action' => url('recipes/create')
         ]);
     }
@@ -35,14 +35,14 @@ class SolorecipesController extends Controller
     {
         return view('solorecipes::recipes.createrecipe', [
             'recipe' => $recipe,
-            'action' => url('recipes/'.$recipe->id.'/edit')
+            'action' => url('recipes/' . $recipe->id . '/edit')
         ]);
     }
 
 
     public function create(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required',
             'steps' => 'required',
             'ingredients' => 'required',
@@ -50,15 +50,15 @@ class SolorecipesController extends Controller
 
         $data = $request->all();
 
-        $recipe = new SoloRecipe;
-        $recipe->name = $data['name'];
-        $steps = array();
-
+        $fields = ['name' => $data['name']];
         if ($request->hasFile('image')) {
             $path = $request->image->store('images', 'public');
-            $recipe->image = $path;
+            $fields['image'] = $path;
         }
 
+        $recipe = SoloRecipe::create($fields);
+
+        $steps = array();
         foreach ($data['steps'] as $key => $step) {
             $newstep = new SoloRecipeStep;
             $newstep->description = $step;
@@ -66,15 +66,10 @@ class SolorecipesController extends Controller
             $steps[] = $newstep;
         }
 
-        $recipe->save();
-
-        $recipe->steps()->saveMany($steps);
+        $recipe->addSteps($steps);
 
         foreach ($data['ingredients'] as $key => $ingredient) {
-            $recipe->ingredients()->attach($ingredient, [
-                'quantity' => $data['quantity'][$key],
-                'preparation' => $data['preparation'][$key],
-            ]);
+            $recipe->addIngredient($ingredient, $data['preparation'][$key], $data['quantity'][$key]);
         }
 
         return redirect('/recipes/' . $recipe->id);
@@ -83,6 +78,12 @@ class SolorecipesController extends Controller
 
     public function edit(Request $request, SoloRecipe $recipe)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'steps' => 'required',
+            'ingredients' => 'required',
+        ]);
+
         $data = $request->all();
         //$recipe = SoloRecipe::findOrFail($id);
 
@@ -109,7 +110,7 @@ class SolorecipesController extends Controller
 
         $recipe->save();
 
-        $recipe->steps()->saveMany($steps);
+        $recipe->addSteps($steps);
 
         $ingData = array();
         foreach ($data['ingredients'] as $key => $ingredient) {

@@ -13,19 +13,20 @@ class CreateUnitsFieldForIngredients extends Migration
      */
     public function up()
     {
-        Schema::table('solo_measurements', function (Blueprint $table) {
+        Schema::create('solo_measurements', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('name');
             $table->string('standard_amount');
             $table->timestamps();
         });
 
-        Schema::table('solomeasurements_soloingredients', function (Blueprint $table) {
-            $table->integer('soloingredient_id')->unsigned()->nullable();
-            $table->integer('solomeasurement_id')->unsigned()->nullable();
+        Schema::create('solo_measurement_solo_ingredient', function (Blueprint $table) {
+            $table->integer('solo_ingredient_id')->unsigned()->nullable();
+            $table->integer('solo_measurement_id')->unsigned()->nullable();
 
-            $table->foreign('solomeasurement_id')->references('id')
+            $table->foreign('solo_measurement_id')->references('id')
                 ->on('solo_measurements')->onDelete('cascade');
-            $table->foreign('soloingredient_id')->references('id')
+            $table->foreign('solo_ingredient_id')->references('id')
                 ->on('solo_ingredients')->onDelete('cascade');
         });
     }
@@ -37,7 +38,8 @@ class CreateUnitsFieldForIngredients extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('solomeasurements_soloingredients');
+        Schema::dropIfExists('solo_ingredient_solo_recipe');
+        Schema::dropIfExists('solo_measurement_solo_ingredient');
         Schema::dropIfExists('solo_measurements');
     }
 }

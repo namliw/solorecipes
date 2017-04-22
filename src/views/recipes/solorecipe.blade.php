@@ -4,7 +4,9 @@
     <div class="row">
         <div class="col-lg-12">
             <h1>{{ $recipe->name }}</h1>
-            <img src="{{ Storage::disk()->url($recipe->image) }}">
+            @if(!empty($recipe->image))
+                <img src="{{ Storage::disk()->url($recipe->image) }}">
+            @endif
             <a href="{{url('/recipes/'.$recipe->id.'/edit')}}">edit</a>
         </div>
     </div>
