@@ -13,15 +13,15 @@ use Symfony\Component\Yaml\Yaml;
 class SolorecipesController extends Controller
 {
 
-    public function __construct()
-    {
-        //$this->middleware('auth',['except' => ['index','viewRecipe']]);
-    }
+//    public function __construct()
+//    {
+//        //$this->middleware('auth',['except' => ['index','viewRecipe']]);
+//    }
 
     public function index()
     {
         return view('solorecipes::recipes.solorecipes', [
-            'recipes' => SoloRecipe::orderBy('created_at', 'asc')->get()
+            'recipes' => SoloRecipe::orderBy('created_at', 'desc')->get()
         ]);
     }
 

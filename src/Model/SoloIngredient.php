@@ -17,7 +17,7 @@ class SoloIngredient extends Model
         return $this->belongsToMany(SoloRecipe::class);
     }
 
-    public function measurements(){
-        return $this->belongsToMany(SoloMeasurement::class);
-    }
+//    public function measurements(){
+//        return $this->belongsToMany(SoloMeasurement::class);
+//    }
 }
