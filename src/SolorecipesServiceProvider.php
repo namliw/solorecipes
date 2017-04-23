@@ -14,8 +14,8 @@ class SolorecipesServiceProvider extends ServiceProvider
     public function boot()
     {
         \Blade::setEchoFormat('nl2br(e(%s))');
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-        $this->loadViewsFrom(__DIR__.'/views', 'solorecipes');
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->loadViewsFrom(__DIR__ . '/views', 'solorecipes');
     }
 
     /**
@@ -25,17 +25,17 @@ class SolorecipesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        include __DIR__.'/routes.php';
+        include __DIR__ . '/routes.php';
         $this->app->make('Solocode\Solorecipes\Controllers\SolorecipesController');
         $this->app->make('Solocode\Solorecipes\Controllers\SoloingredientsController');
         $this->publishes([
-            __DIR__.'/views' => base_path('resources/views/solocode/solorecipes'),
+            __DIR__ . '/views' => base_path('resources/views/vendor/solocode/solorecipes'),
         ]);
         $this->publishes([
-            __DIR__.'/assets' => base_path('public/solocode'),
+            __DIR__ . '/assets' => base_path('public/solocode'),
         ]);
         $this->publishes([
-            __DIR__.'/database/seeds' => base_path('database/seeds'),
+            __DIR__ . '/database/seeds' => base_path('database/seeds'),
         ]);
     }
 }

@@ -8,9 +8,15 @@ use Illuminate\Support\Facades\Storage;
 use Solocode\Solorecipes\Model\SoloRecipe;
 use Illuminate\Http\Request;
 use Solocode\Solorecipes\Model\SoloRecipeStep;
+use Symfony\Component\Yaml\Yaml;
 
 class SolorecipesController extends Controller
 {
+
+    public function __construct()
+    {
+        //$this->middleware('auth',['except' => ['index','viewRecipe']]);
+    }
 
     public function index()
     {
@@ -124,6 +130,26 @@ class SolorecipesController extends Controller
 
         return redirect('/recipes/' . $recipe->id);
 
+    }
+
+    public function uploadRecipe()
+    {
+        return view('solorecipes::recipes.uploadrecipe');
+    }
+
+    public function processRecipes(Request $request)
+    {
+        try {
+            $path = $request->yamlfile->store('recipes');
+            $recipes = Yaml::parse(Storage::get($path), Yaml::PARSE_OBJECT_FOR_MAP);
+            foreach ($recipes as $recipe) {
+                SoloRecipe::createFromYaml($recipe);
+            }
+            $request->session()->flash('solomessage', 'Task was successful!');
+        } catch (ParseException $e) {
+            printf("Unable to parse the YAML string: %s", $e->getMessage());
+        }
+        return redirect('/recipes');
     }
 
 }

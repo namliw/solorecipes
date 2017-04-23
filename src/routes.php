@@ -1,23 +1,24 @@
 <?php
 
-//Route::get('recipes',
-//  'Solocode\Solorecipes\Controllers\SolorecipesController@index');
+Route::get('recipes/upload',
+    'Solocode\Solorecipes\Controllers\SolorecipesController@uploadRecipe');
+Route::post('recipes/upload',
+    'Solocode\Solorecipes\Controllers\SolorecipesController@processRecipes');
 
 //Product action routes
-Route::group(['middleware' => ['web'],'prefix' => 'recipes'], function () {
+Route::group(['middleware' => ['web'], 'prefix' => 'recipes', 'namespace' => 'Solocode\Solorecipes\Controllers'], function () {
+    Route::get('/', 'SolorecipesController@index');
+    Route::get('/{recipe}', 'SolorecipesController@viewRecipe');
+    //Route::get('/upload', 'SolorecipesController@uploadRecipe');
+    Route::get('/addRecipe', 'SolorecipesController@createRecipe');
+    Route::get('/{recipe}/edit/', 'SolorecipesController@editRecipe');
 
-    Route::get('/', 'Solocode\Solorecipes\Controllers\SolorecipesController@index');
-    Route::get('/addRecipe', 'Solocode\Solorecipes\Controllers\SolorecipesController@createRecipe');
-    Route::get('/{recipe}', 'Solocode\Solorecipes\Controllers\SolorecipesController@viewRecipe');
-    Route::post('/create', 'Solocode\Solorecipes\Controllers\SolorecipesController@create');
-    Route::get('/{recipe}/edit/', 'Solocode\Solorecipes\Controllers\SolorecipesController@editRecipe');
-    Route::post('/{recipe}/edit/', 'Solocode\Solorecipes\Controllers\SolorecipesController@edit');
-
+    //Route::post('/upload', 'SolorecipesController@processRecipes');
+    Route::post('/create', 'SolorecipesController@create');
+    Route::post('/{recipe}/edit/', 'SolorecipesController@edit');
 });
 
-Route::group(['middleware' => ['web'],'prefix' => 'ingredients'], function () {
-
+Route::group(['middleware' => ['web'], 'prefix' => 'ingredients'], function () {
     Route::get('/', 'Solocode\Solorecipes\Controllers\SoloingredientsController@listIngredients');
     Route::get('/search/{term}', 'Solocode\Solorecipes\Controllers\SoloingredientsController@search');
-
 });

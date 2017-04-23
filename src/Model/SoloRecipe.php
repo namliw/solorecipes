@@ -35,11 +35,43 @@ class SoloRecipe extends Model
         $this->steps()->saveMany($steps);
     }
 
-    public function addIngredient(SoloIngredient $ingredient, $preparation, $quantity = 1)
+    public function addIngredient(SoloIngredient $ingredient, $preparation, $quantity = 1, $measurement = 'grams')
     {
         $this->ingredients()->attach($ingredient, [
             'quantity' => $quantity,
             'preparation' => $preparation,
+            //'measurement' => $measurement,
         ]);
+    }
+
+    public function addIngredientByName($ingredient, $preparation, $quantity = 1, $measurement = 'grams')
+    {
+        $ingredient = trim($ingredient);
+        //Find ingredient or create if it doesnt exist
+        $ingredient = SoloIngredient::firstOrCreate(['name' => $ingredient]);
+        $this->addIngredient($ingredient, $preparation, $quantity, $measurement);
+    }
+
+    static public function createFromYaml($yamlEntry)
+    {
+        $yamlEntry = (object)$yamlEntry;
+        $recipe = SoloRecipe::create(['name' => $yamlEntry->Name]);
+
+        $steps = array();
+        foreach ($yamlEntry->Steps as $key => $step) {
+            $newstep = new SoloRecipeStep;
+            $newstep->description = $step;
+            $newstep->sortorder = $key;
+            $steps[] = $newstep;
+        }
+
+        $recipe->addSteps($steps);
+
+        foreach ($yamlEntry->Ingredients as $ingredient) {
+            $recipe->addIngredientByName($ingredient->Name,
+                $ingredient->Preparation, $ingredient->Quantity, $ingredient->Measurement);
+        }
+
+        return $recipe;
     }
 }
