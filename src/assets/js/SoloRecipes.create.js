@@ -26,6 +26,13 @@ var steps = new Vue({
         }
     }
 });
+
+var cartCounterApp = new Vue({
+    el : '#cartCounterApp',
+    data:{
+        recipes:[]
+    },
+});
 $(function(){
     if(typeof (currIngredients) != 'undefined' && currIngredients.length > 0){
         $.each(currIngredients,function(i,item){

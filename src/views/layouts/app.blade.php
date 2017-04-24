@@ -22,6 +22,7 @@
     </style>
 </head>
 <body class="container-fluid">
+@include('solorecipes::partials.header.navbar')
 @if($flash = session('solomessage'))
     <div class="alert alert-success alert-dismissable fade in">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -38,6 +39,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="{{asset('/solocode/js/global.js')}}"></script>
 @yield('scripts')
 </body>
 </html>

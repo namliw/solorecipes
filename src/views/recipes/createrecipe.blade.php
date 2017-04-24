@@ -120,7 +120,6 @@
             @endif
         ];
     </script>
-    <script src="https://unpkg.com/vue"></script>
     <link href="{{asset('/solocode/css/SoloRecipes.css')}}" rel="stylesheet" type="text/css">
     <script src="{{asset('/solocode/js/bootstrap-list-filter.min.js')}}"></script>
     <script src="{{asset('/solocode/js/SoloRecipes.create.js')}}"></script>

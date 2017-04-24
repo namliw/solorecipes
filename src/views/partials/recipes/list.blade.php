@@ -6,6 +6,7 @@
             </div>
         @endif
 
-        <div class="panel-footer"><a href="{{url('/recipes/'.$recipe->id)}}">{{ $recipe->name }}</a></div>
+        <div class="panel-footer"><a href="{{url('/recipes/'.$recipe->id)}}">{{ $recipe->name }}</a>
+        <a href="#" title="Add to shopping list"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></div>
     </div>
 </div>
