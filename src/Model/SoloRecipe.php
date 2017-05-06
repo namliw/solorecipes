@@ -22,7 +22,7 @@ class SoloRecipe extends Model
     public function ingredients()
     {
         return $this->belongsToMany(SoloIngredient::class)
-            ->withPivot('quantity', 'preparation');
+            ->withPivot('quantity', 'preparation', 'measurement');
     }
 
     public function addStep(SoloRecipeStep $step)
@@ -40,7 +40,7 @@ class SoloRecipe extends Model
         $this->ingredients()->attach($ingredient, [
             'quantity' => $quantity,
             'preparation' => $preparation,
-            //'measurement' => $measurement,
+            'measurement' => $measurement,
         ]);
     }
 

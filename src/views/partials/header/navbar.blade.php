@@ -21,7 +21,7 @@
                     <li><a href="{{url('/recipes/upload')}}">Upload Recipe</a></li>
                     <li><a href="{{url('/recipes/addRecipe')}}">Add Recipe</a></li>
                     <li id="cartCounterApp">
-                        <a href="#">Recipes cart <span class="badge">@{{ recipes.length }}</span></a>
+                        <a href="{{url('/recipes/cart')}}">Recipes cart <span class="badge">@{{ recipes.length }}</span></a>
                     </li>
                 @endif
             </ul>

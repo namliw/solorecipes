@@ -38,6 +38,7 @@ class CreateRecipesIngredientsStepsTables extends Migration
             $table->increments('id');
             $table->string('quantity');
             $table->text('preparation');
+            $table->text('measurement');
             $table->timestamps();
         });
 

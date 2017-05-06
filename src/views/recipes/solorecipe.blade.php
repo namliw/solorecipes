@@ -16,7 +16,7 @@
         </div>
         @foreach ($recipe->ingredients as $ingredient)
             <div class="col-md-3">
-                {{$ingredient->name}} - {{$ingredient->pivot->quantity}} - {{$ingredient->pivot->preparation}}
+                {{$ingredient->name}} - {{$ingredient->pivot->quantity}} - {{$ingredient->pivot->measurement}} - {{$ingredient->pivot->preparation}}
             </div>
         @endforeach
     </div>
