@@ -7,7 +7,7 @@
         @foreach ($recipes as $recipe)
             <tr>
                 <td><a href="{{url('/recipes/'.$recipe->id)}}">{{$recipe->name}}</a></td>
-                <td><a href="{{url('/cart/remove/'.$recipe->id)}}">Remove</a></td>
+                <td>&nbsp;</td>
             </tr>
             <tr>
                 <table class="table">
@@ -55,7 +55,6 @@
         @endforeach
         </tbody>
     </table>
-    <a class="btn-primary btn" href="{{ url('/recipes/cart/saveplan') }}">Save Plan</a>
 @endsection
 
 @section('scripts')

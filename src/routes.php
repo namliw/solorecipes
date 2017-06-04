@@ -9,6 +9,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'recipes', 'namespace' => 'So
     Route::get('/upload', 'SolorecipesController@uploadRecipe');
     Route::post('/upload', 'SolorecipesController@processRecipes');
     Route::get('/cart', 'SolocartController@viewCart');
+    Route::get('/cart/saveplan', 'SolocartController@savePlan');
     //Route::get('/upload', 'SolorecipesController@uploadRecipe');
     Route::get('/addRecipe', 'SolorecipesController@createRecipe');
     Route::get('/{recipe}', 'SolorecipesController@viewRecipe');
@@ -16,6 +17,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'recipes', 'namespace' => 'So
 
     //Route::post('/upload', 'SolorecipesController@processRecipes');
     Route::post('/{recipe}/edit/', 'SolorecipesController@edit');
+    Route::post('/{recipe}/editimage/', 'SolorecipesController@imageUpload');
 
 });
 
@@ -29,4 +31,10 @@ Route::group(['middleware' => ['web'], 'prefix' => 'cart', 'namespace' => 'Soloc
     Route::post('/addToCar', 'SolocartController@addToCar');
     Route::post('/removeFromCart', 'SolocartController@removeFromCart');
     Route::get('/remove/{id}', 'SolocartController@remove');
+});
+
+Route::group(['middleware' => ['web'], 'prefix' => 'mealplans', 'namespace' => 'Solocode\Solorecipes\Controllers'], function () {
+    Route::get('/', 'MealplanController@listPlans');
+    Route::get('/{mealplan}', 'MealplanController@view');
+
 });

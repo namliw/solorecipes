@@ -11,6 +11,7 @@ namespace Solocode\Solorecipes\Controllers;
 use App\Http\Controllers\Controller;
 use Solocode\Solorecipes\Model\SoloIngredient;
 use Illuminate\Http\Request;
+use Solocode\Solorecipes\Model\SoloMealplan;
 use Solocode\Solorecipes\Model\SoloRecipe;
 
 class SolocartController extends Controller
@@ -74,6 +75,19 @@ class SolocartController extends Controller
             $value = self::getSessionRecipes();
             return response()->json($value);
         }
+    }
+
+    public function savePlan(){
+        $recipes = self::getSessionRecipes();
+        if (!empty($recipes)) {
+            $recipes = SoloRecipe::all()->whereIn('id', $recipes);
+            $mealPlan = new SoloMealplan();
+            $mealPlan->save();
+            $mealPlan->recipes()->saveMany($recipes);
+            request()->session()->put('solorecipes', []);
+        }
+
+        return redirect('/mealplans');
     }
 
     private function saveRecipeInSession($recipeId)

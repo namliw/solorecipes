@@ -55,21 +55,24 @@ class SoloRecipe extends Model
     static public function createFromYaml($yamlEntry)
     {
         $yamlEntry = (object)$yamlEntry;
-        $recipe = SoloRecipe::create(['name' => $yamlEntry->Name]);
+        $recipe = SoloRecipe::where('name', '=', trim($yamlEntry->Name))->first();
+        if ($recipe === null) {
+            $recipe = SoloRecipe::create(['name' => trim($yamlEntry->Name)]);
 
-        $steps = array();
-        foreach ($yamlEntry->Steps as $key => $step) {
-            $newstep = new SoloRecipeStep;
-            $newstep->description = $step;
-            $newstep->sortorder = $key;
-            $steps[] = $newstep;
-        }
+            $steps = array();
+            foreach ($yamlEntry->Steps as $key => $step) {
+                $newstep = new SoloRecipeStep;
+                $newstep->description = trim($step);
+                $newstep->sortorder = $key;
+                $steps[] = $newstep;
+            }
 
-        $recipe->addSteps($steps);
+            $recipe->addSteps($steps);
 
-        foreach ($yamlEntry->Ingredients as $ingredient) {
-            $recipe->addIngredientByName($ingredient->Name,
-                $ingredient->Preparation, $ingredient->Quantity, $ingredient->Measurement);
+            foreach ($yamlEntry->Ingredients as $ingredient) {
+                $recipe->addIngredientByName($ingredient->Name,
+                    $ingredient->Preparation, $ingredient->Quantity, $ingredient->Measurement);
+            }
         }
 
         return $recipe;
