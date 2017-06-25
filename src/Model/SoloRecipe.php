@@ -9,6 +9,7 @@
 namespace Solocode\Solorecipes\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class SoloRecipe extends Model
 {
@@ -57,7 +58,16 @@ class SoloRecipe extends Model
         $yamlEntry = (object)$yamlEntry;
         $recipe = SoloRecipe::where('name', '=', trim($yamlEntry->Name))->first();
         if ($recipe === null) {
-            $recipe = SoloRecipe::create(['name' => trim($yamlEntry->Name)]);
+            $baseFields = ['name' => trim($yamlEntry->Name)];
+
+            if(isset($yamlEntry->imageURL)){
+                $filename = basename($yamlEntry->imageURL);
+                $path = storage_path('/app/public/images/' . $filename);
+                Image::make($yamlEntry->imageURL)->save($path);
+                $baseFields['image'] = 'images/'.$filename;
+            }
+            
+            $recipe = SoloRecipe::create($baseFields);
 
             $steps = array();
             foreach ($yamlEntry->Steps as $key => $step) {
