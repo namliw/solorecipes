@@ -1,5 +1,5 @@
 <?php
-
+// This is a random commit
 //Product action routes
 Route::group(['middleware' => ['web'], 'prefix' => 'recipes', 'namespace' => 'Solocode\Solorecipes\Controllers'], function () {
     //Note to self, laravel has a strange bug where the order of the routes matter....
@@ -20,7 +20,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'recipes', 'namespace' => 'So
     Route::post('/{recipe}/editimage/', 'SolorecipesController@imageUpload');
 
 });
-
+// This is another commit
 Route::group(['middleware' => ['web'], 'prefix' => 'ingredients'], function () {
     Route::get('/', 'Solocode\Solorecipes\Controllers\SoloingredientsController@listIngredients');
     Route::get('/search/{term}', 'Solocode\Solorecipes\Controllers\SoloingredientsController@search');
